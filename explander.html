@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lunar Lander</title>
+    <style>
+        body {
+            font-family: monospace;
+        }
+        game-output {
+            white-space: pre; /* Preserve whitespace for output formatting */
+        }
+        outputDiv {
+            white-space: pre; /* Preserve whitespace for output formatting */
+        }
+    </style>
+</head>
+<body>
+    <h1>Lunar Lander</h1>
+    <div id="game-output"></div><p>"Height\tSpeed\tFuel"<br></p></div>
+    <input type="number" id="burnInput" min="" value="0">
+    <button onclick="burnFuel()">Burn!</button>
+
+    <div id="game-output"></div>
+    <script>
+        var height = 2500;
+        var speed = -450;
+        var acc = -5;
+        var fuel = 600;
+        var landing = true;
+
+        function burnfuel() {
+            const burn = parseInt(document.getElementById("burnInput").value);
+            height += speed;
+            speed += acc;
+            fuel -= burn;
+            outputDiv = document.getElementById("game-output");
+            outputDiv.innerHTML += `${height}\t${speed}\t${fuel}<br>`;
+            if (fuel > 0) {
+                speed += burn + acc;
+                height += speed;
+                if ( height <= 0) {
+                    if (speed <= 0 && speed >= -5) {
+                        outputDiv.innerHTML += "<br><br>Congratulations!<br>The Eagle has landed!";
+                        landing = false;
+                    } else {
+                        outputDiv.innerHTML += "<br><br>Too Bad!<br>You crashed! (Speed too high)";
+                        landing = false;
+                    }
+                    if (speed <= 0 && speed >= -5) {
+                        outputDiv.innerHTML += "<br><br>Congratulations!<br>The Eagle has landed!";
+                        landing = false;
+                    }
+                }
+            } else {
+                outputDiv.innerHTML += "<br><br>Too Bad!<br>You crashed! (Out of fuel)";
+                landing = false;
+            }
+            outputDiv.innerHTML += `${height}\t${speed}\t${fuel}<br>`;
+        }
+        // JavaScript code will go here
+      /*
+        class LunarLander {
+    constructor() {
+      this.height = 2500;
+      this.speed = -450;
+      this.acc = -5; 
+      this.fuel = 600;
+      this.landing = true;
+      this.outputDiv = document.getElementById("game-output");
+            this.fuel -= burn;
+
+        if (this.fuel > 0) {
+          this.speed += burn + this.acc;
+          this.height += this.speed;
+
+          if (this.height <= 0) {
+            if (this.speed <= 0 && this.speed >= -5) {
+              this.outputDiv.innerHTML += "<br><br>Congratulations!<br>The Eagle has landed!";
+              this.landing = false;
+              break;
+            } else {
+              this.outputDiv.innerHTML += "<br><br>Too Bad!<br>You crashed! (Speed too high)";
+              this.landing = false;
+            }
+          }
+        } else {
+          this.outputDiv.innerHTML += "<br><br>Too Bad!<br>You crashed! (Out of fuel)";
+          this.landing = false;
+        }
+
+        this.outputDiv.innerHTML += `${this.height}\t${this.speed}\t${this.fuel}<br>`;
+      }
+    }
+
+    play(burn) {
+      this.outputDiv.innerHTML = "Height\tSpeed\tFuel<br>";
+      while (this.landing) {
+        //const burn = parseInt(prompt("Burn? "));
+        //const burn = 10;
+        this.fuel -= burn;
+
+        if (this.fuel > 0) {
+          this.speed += burn + this.acc;
+          this.height += this.speed;
+
+          if (this.height <= 0) {
+            if (this.speed <= 0 && this.speed >= -5) {
+              this.outputDiv.innerHTML += "<br><br>Congratulations!<br>The Eagle has landed!";
+              this.landing = false;
+              break;
+            } else {
+              this.outputDiv.innerHTML += "<br><br>Too Bad!<br>You crashed! (Speed too high)";
+              this.landing = false;
+            }
+          }
+        } else {
+          this.outputDiv.innerHTML += "<br><br>Too Bad!<br>You crashed! (Out of fuel)";
+          this.landing = false;
+        }
+
+        this.outputDiv.innerHTML += `${this.height}\t${this.speed}\t${this.fuel}<br>`;
+      }
+  }
+}
+
+const game = new LunarLander();
+//game.play();
+*/
+    </script>
+</body>
+</html>

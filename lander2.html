@@ -1,0 +1,53 @@
+from IPython.display import HTML, Javascript
+
+class LunarLander:
+    def __init__(self):
+        self.height = 2500
+        self.speed = -450
+        self.acc = -5
+        self.fuel = 600
+        self.landing = True
+
+    def play(self):
+        print("Height\tSpeed\tFuel")  # Initial status display
+
+        # HTML for input and button
+        html_code = """
+        <input type="number" id="burnInput" min="0" value="0">
+        <button onclick="burnFuel()">Burn!</button>
+        <div id="output"></div> 
+        """
+        display(HTML(html_code))
+
+        # JavaScript to handle button click and update game state
+        js_code = """
+        function burnFuel() {
+            var burn = parseInt(document.getElementById("burnInput").value);
+            IPython.notebook.kernel.execute("game.update_state(" + burn + ")");
+        }
+        """
+        display(Javascript(js_code))
+
+    def update_state(self, burn):
+        self.fuel -= burn
+        if self.fuel > 0:
+            self.speed += (burn + self.acc)
+            self.height += self.speed
+            if self.height <= 0:
+                if self.speed <= 0 and self.speed >= -5:
+                    document.getElementById("output").innerHTML = "<br><br>Congratulations!<br>The Eagle has landed!";
+                    self.landing = False
+                else:
+                    document.getElementById("output").innerHTML = "<br><br>Too Bad!<br>You crashed! (Speed too high)";
+                    self.landing = False
+        else:
+            document.getElementById("output").innerHTML = "<br><br>Too Bad!<br>You crashed! (Out of fuel)";
+            self.landing = False
+
+        # Update output to display current status
+        document.getElementById("output").innerHTML = "Height: " + this.height + "<br>Speed: " + this.speed + "<br>Fuel: " + this.fuel; 
+        
+
+# Create an instance of the LunarLander class and start the game
+game = LunarLander()
+game.play()
