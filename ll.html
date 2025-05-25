@@ -10,6 +10,9 @@
         <table id="lander_table"></table>
         <label for="burn-input">Burn amount:</label>
         <input type="number" id="burn-input" min="0" step="1">
+        <div style="margin-top:2em;">
+            <button id="help-btn" title="About Lunar Lander" style="font-size:1.2em; background:#2196f3; color:white; border:none; border-radius:0.5em; width:1.3em; height:1.3em; cursor:pointer; box-shadow:0 2px 6px #0003;">?</button>
+        </div>
         <div id="status-msg"></div>
         <script>
             var table = document.getElementById("lander_table");
@@ -122,6 +125,45 @@
 
                     burnInput.value = '';
                 }
+            });
+
+            // Help button logic
+            document.getElementById('help-btn').addEventListener('click', function() {
+                var helpWin = window.open('', 'LanderHelp', 'width=420,height=480');
+                helpWin.document.write(`
+                    <html>
+                    <head>
+                        <title>About Lunar Lander</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 2em; background: #222; color: #eee; }
+                            h2 { color: #ffd700; }
+                            ul { margin-left: 1.2em; }
+                            #return-btn { margin-top: 2em; font-size: 1.1em; background: #2196f3; color: white; border: none; border-radius: 0.4em; padding: 0.5em 1.2em; cursor: pointer; box-shadow: 0 2px 6px #0003; }
+                        </style>
+                    </head>
+                    <body>
+                        <h2>Lunar Lander: How to Play</h2>
+                        <p><b>Goal:</b> Land your lunar module safely on the moon by managing your speed and fuel.</p>
+                        <h3>How it Works</h3>
+                        <ul>
+                            <li>You start with a certain height, downward speed, and a limited amount of fuel.</li>
+                            <li>Each turn, enter how much fuel to burn (0-75 units) and press Enter.</li>
+                            <li>Burning fuel slows your descent. Gravity pulls you down each turn.</li>
+                            <li>Your height, speed, and fuel update after each burn.</li>
+                        </ul>
+                        <h3>How to Win</h3>
+                        <ul>
+                            <li>Land with a speed of -5 or higher (closer to zero) when your height reaches 0.</li>
+                            <li>If you run out of fuel, you will crash unless your speed is already safe.</li>
+                            <li>If you land too fast (speed less than -5), you crash and make a crater!</li>
+                        </ul>
+                        <p>Good luck, Commander!</p>
+                      
+                    
+                    </body>
+                    </html>
+                `);
+                helpWin.document.close();
             });
         </script>
     </body>
